@@ -1,0 +1,28 @@
+{
+  "name": "djaguar",
+  "version": "0.0.1",
+  "description": "A simple discord bot for playing music.",
+  "main": "app.js",
+  "scripts": {
+    "test": "node app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hyaenaGemah/DJaguar.git"
+  },
+  "keywords": [
+    "discord",
+    "bot",
+    "music"
+  ],
+  "author": "HyaenaGemah",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hyaenaGemah/DJaguar/issues"
+  },
+  "homepage": "https://github.com/hyaenaGemah/DJaguar#readme",
+  "dependencies": {
+    "discord.js": "^14.7.1",
+    "dotenv": "^16.0.3"
+  }
+}
