@@ -2,7 +2,12 @@
 require('dotenv').config();
 const fs = require('node:fs');
 const path = require('node:path');
-const { Client, Collection, Events, GatewayIntentBits } = require('discord.js');
+const { Client, Collection, GatewayIntentBits } = require('discord.js');
+const { generateDependencyReport } = require('@discordjs/voice');
+
+if (process.env.APP_DEBUG) {
+    console.log(generateDependencyReport());
+}
 
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 
