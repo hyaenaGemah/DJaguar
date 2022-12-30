@@ -11,7 +11,9 @@ module.exports = {
             interaction.editReply("DJ is not currently in any VC. :leopard: :grey_question:");
             console.log("No voice chat to (un)pause music currently playing.");
             return;
-        } else if (!connection.state.subscription) {
+        }
+
+        if (!connection.state.subscription) {
             interaction.editReply("DJ is not playing any music at the moment. :leopard: :grey_question:");
             console.log("No music currently playing to (un)pause.");
             return;
