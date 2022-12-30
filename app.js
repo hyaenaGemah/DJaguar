@@ -9,7 +9,9 @@ if (process.env.APP_DEBUG) {
     console.log(generateDependencyReport());
 }
 
-const client = new Client({ intents: [GatewayIntentBits.Guilds] });
+const client = new Client({
+    intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildVoiceStates]
+});
 
 // Commands
 client.commands = new Collection();
