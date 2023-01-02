@@ -1,3 +1,4 @@
+const utils = require('../utils/utils');
 const { SlashCommandBuilder } = require('discord.js');
 const { joinVoiceChannel } = require('@discordjs/voice');
 
@@ -10,7 +11,7 @@ module.exports = {
 
             if (!voiceChannel) {
                 interaction.reply("DJ can only join a VC if the requesting user is in one. :leopard: :anger:");
-                console.log("Could not find Voice Channel to join");
+                utils.formattedLog("Could not find Voice Channel to join");
                 return;
             }
 
@@ -21,13 +22,13 @@ module.exports = {
             });
 
             vc.on('stateChange', (oldState, newState) => {
-                console.log(`Connection transitioned from ${oldState.status} to ${newState.status}`);
+                utils.formattedLog(`Connection transitioned from ${oldState.status} to ${newState.status}`);
             });
 
             await interaction.reply('DJ has joined VC!');
         } catch (err) {
             interaction.reply("Uh-oh! The DJ had some trouble joining VC! :leopard: :sweat_drops:");
-            console.log("Failure joining a Voice Channel.\n" + err);
+            utils.formattedLog("Failure joining a Voice Channel.\n" + err);
         }
     }
 };

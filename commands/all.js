@@ -1,5 +1,6 @@
 
 const fs = require('node:fs');
+const utils = require('../utils/utils');
 const { SlashCommandBuilder } = require('discord.js');
 
 module.exports = {
@@ -16,7 +17,7 @@ module.exports = {
                 interaction.editReply(`These are all the music I've got:\n${foundFiles}`);
             } catch (thrownErr) {
                 interaction.editReply("Uh-oh! The DJ had some trouble fetching the music! :leopard: :sweat_drops:");
-                console.log(`Failure listing all found files.\n${thrownErr}`);
+                utils.formattedLog(`Failure listing all found files.\n${thrownErr}`);
             }
         });
     }

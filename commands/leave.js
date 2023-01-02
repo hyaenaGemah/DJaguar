@@ -1,3 +1,4 @@
+const utils = require('../utils/utils');
 const { SlashCommandBuilder } = require('discord.js');
 const { getVoiceConnection } = require('@discordjs/voice');
 
@@ -8,7 +9,7 @@ module.exports = {
 
         if (!connection) {
             interaction.reply("DJ is not currently in any VC. :leopard: :zzz:");
-            console.log("No voice chat to disconnect from.");
+            utils.formattedLog("No voice chat to disconnect from.");
             return;
         }
 

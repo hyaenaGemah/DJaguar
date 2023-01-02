@@ -5,6 +5,13 @@ const path = require('node:path');
 const { Client, Collection, GatewayIntentBits } = require('discord.js');
 const { generateDependencyReport } = require('@discordjs/voice');
 
+// Set up queue (global variable)
+global.queueResources = {
+    queue: [],
+    repeat: false,
+    current: null
+};
+
 if (process.env.APP_DEBUG) {
     console.log(generateDependencyReport());
 }

@@ -5,6 +5,6 @@ module.exports = {
     once: true,
     execute(bot) {
         const now = new Date();
-        console.log(`DJaguar is up and running - Details:\n - User Tag: ${bot.user.tag}\n - Start Date-Time: ${now.toDateString()}`);
+        console.log(`DJaguar is up and running - Details:\n - User Tag: ${bot.user.tag}\n - Start Date-Time: ${now.toDateString()}\n`);
     }
 };
