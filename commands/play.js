@@ -2,6 +2,7 @@ require('dotenv').config();
 const utils = require('../utils/utils');
 const fs = require('node:fs');
 const path = require('node:path');
+const dao = require('../repository/dataAccess');
 const { SlashCommandBuilder } = require('discord.js');
 const { getVoiceConnection, createAudioResource, createAudioPlayer, NoSubscriberBehavior, AudioPlayerStatus } = require('@discordjs/voice');
 
@@ -46,7 +47,8 @@ module.exports = {
         .setDescription("Play/Queue any available music.")
         .addStringOption(opt => opt.setName("song").setDescription("Filename of the song to play."))
         .addBooleanOption(opt => opt.setName("now").setDescription("Prepend and play the song, restarting the queue."))
-        .addBooleanOption(opt => opt.setName("replay").setDescription("Replays queue from the beginning")),
+        .addBooleanOption(opt => opt.setName("replay").setDescription("Replays queue from the beginning."))
+        .addStringOption(opt => opt.setName("tag").setDescription("Adds tagged to queue and plays from start (Ignores other options).")),
     async execute(interaction) {
         await interaction.deferReply();
         const connection = getVoiceConnection(interaction.guildId);
@@ -54,6 +56,36 @@ module.exports = {
         if (!connection) {
             interaction.editReply("DJ is not currently in any VC. :leopard: :grey_question:");
             utils.formattedLog("No voice chat to play music in.");
+            return;
+        }
+
+        const tag = interaction.options.getString("tag");
+
+        if (tag) {
+            interaction.editReply(`Appending songs with the tag: *${tag}*...`);
+            const channel = interaction.channel;
+
+            dao.getSongs(tag, (songs) => {
+                const updatedQueue = [global.queueResources.queue, songs].flatMap(s => s);
+                global.queueResources.queue = updatedQueue;
+                global.queueResources.current = updatedQueue[0];
+
+                const player = createAudioPlayer({
+                    behaviors: {
+                        noSubscriber: NoSubscriberBehavior.Pause,
+                    }
+                });
+                const resource = createAudioResource(global.queueResources.current);
+                audioPlayerObserver(player);
+                player.play(resource);
+                const subs = connection.subscribe(player);
+
+                if (!subs) {
+                    setTimeout(() => subs.unsubscribe(), 3000);
+                }
+                channel.send("Playing the queue from the very beginning! :leopard:~ :notes:");
+            })
+
             return;
         }
 

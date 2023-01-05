@@ -1,6 +1,6 @@
 {
   "name": "djaguar",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "A simple discord bot for playing music.",
   "main": "app.js",
   "scripts": {
@@ -30,6 +30,7 @@
     "opusscript": "^0.0.8",
     "sodium": "^3.0.2",
     "sodium-native": "^3.4.1",
+    "sqlite3": "^5.1.4",
     "tweetnacl": "^1.0.3"
   }
 }

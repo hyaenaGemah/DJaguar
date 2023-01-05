@@ -2,6 +2,8 @@
 require('dotenv').config();
 const fs = require('node:fs');
 const path = require('node:path');
+const repertoire = require('./repository/fileAccess');
+const dao = require('./repository/dataAccess');
 const { Client, Collection, GatewayIntentBits } = require('discord.js');
 const { generateDependencyReport } = require('@discordjs/voice');
 
@@ -15,6 +17,10 @@ global.queueResources = {
 if (process.env.APP_DEBUG) {
     console.log(generateDependencyReport());
 }
+
+// Set up local repositories (files and database)
+repertoire.initialize();
+dao.initialize();
 
 const client = new Client({
     intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildVoiceStates]

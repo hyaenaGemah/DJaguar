@@ -14,6 +14,6 @@ module.exports = {
             replyMessage += ":repeat:";
         }
 
-        interaction.reply(replyMessage);
+        await interaction.reply(replyMessage);
     }
 };

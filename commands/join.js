@@ -10,7 +10,7 @@ module.exports = {
             const voiceChannel = currMember.voice.channel;
 
             if (!voiceChannel) {
-                interaction.reply("DJ can only join a VC if the requesting user is in one. :leopard: :anger:");
+                await interaction.reply("DJ can only join a VC if the requesting user is in one. :leopard: :anger:");
                 utils.formattedLog("Could not find Voice Channel to join");
                 return;
             }
@@ -27,7 +27,7 @@ module.exports = {
 
             await interaction.reply('DJ has joined VC!');
         } catch (err) {
-            interaction.reply("Uh-oh! The DJ had some trouble joining VC! :leopard: :sweat_drops:");
+            await interaction.reply("Uh-oh! The DJ had some trouble joining VC! :leopard: :sweat_drops:");
             utils.formattedLog("Failure joining a Voice Channel.\n" + err);
         }
     }

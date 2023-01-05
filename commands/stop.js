@@ -8,13 +8,13 @@ module.exports = {
         const connection = getVoiceConnection(interaction.guildId);
 
         if (!connection) {
-            interaction.reply("DJ is not currently in any VC. :leopard: :grey_question:");
+            await interaction.reply("DJ is not currently in any VC. :leopard: :grey_question:");
             utils.formattedLog("No voice chat to stop the music currently playing.");
             return;
         }
 
         if (!connection.state.subscription) {
-            interaction.reply("DJ is not playing any music at the moment. :leopard: :grey_question:");
+            await interaction.reply("DJ is not playing any music at the moment. :leopard: :grey_question:");
             utils.formattedLog("No music currently playing to stop.");
             return;
         }
@@ -22,7 +22,7 @@ module.exports = {
         global.queueResources.queue = [];
         global.queueResources.current = null;
         connection.state.subscription.player.stop();
-        interaction.reply("Songs unqueued. DJ is now idle. :leopard: :stop_button:");
+        await interaction.reply("Songs unqueued. DJ is now idle. :leopard: :stop_button:");
         utils.formattedLog("Music stopped.");
     }
 };

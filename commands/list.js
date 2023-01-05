@@ -1,29 +1,20 @@
-const utils = require('../utils/utils');
+require('dotenv').config();
+const path = require('node:path');
+const dao = require('../repository/dataAccess');
 const { SlashCommandBuilder } = require('discord.js');
+
+const fullPathToMusic = path.resolve(process.env.APP_PATH_TO_MUSIC);
 
 module.exports = {
     data: new SlashCommandBuilder().setName("list").setDescription("Lists all songs queued."),
     async execute(interaction) {
         if (global.queueResources.queue.length === 0) {
-            interaction.reply("There are no songs queued currently. :leopard: :mute:");
+            await interaction.reply("There are no songs queued currently. :leopard: :mute:");
+            return;
         }
 
-        let queueInfo = "Queued songs:\n```";
-        let currentlyPlaying = "None";
-
-        for (let i = 0; i < global.queueResources.queue.length; i++) {
-            const position = (global.queueResources.queue.indexOf(global.queueResources.queue[i]) + 1);
-            const filename = global.queueResources.queue[i].replace(process.env.APP_PATH_TO_MUSIC, '');
-
-            if (global.queueResources.queue[i] === global.queueResources.current) {
-                currentlyPlaying = `**${global.queueResources.queue[i].replace(process.env.APP_PATH_TO_MUSIC, '')}**`
-            }
-
-            queueInfo += `#${position}: ${filename}\n`;
-        }
-
-        queueInfo += "```\nCurrently playing: " + currentlyPlaying;
-
-        interaction.reply(queueInfo);
+        await interaction.reply("Collection queue data... :leopard: :thought_balloon:");
+        const files = global.queueResources.queue.map(f => f.replace(path.resolve(process.env.APP_PATH_TO_MUSIC), '').substring(1));
+        dao.listSongs(interaction.channel, files);
     }
 };

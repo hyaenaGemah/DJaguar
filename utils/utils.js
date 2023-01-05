@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 module.exports = {
     formattedLog: function (message) {
         const now = new Date();
@@ -20,5 +22,13 @@ module.exports = {
         }
 
         return next;
+    },
+    validRoles: function (roleName) {
+        const customRole = process.env.APP_CUSTOM_ROLE;
+        const roleHasCustomName = customRole ? roleName.toLowerCase() === customRole.toLowerCase() : false;
+        return roleName.toLowerCase().includes("dj") || roleName.toLowerCase().includes("mod") || roleHasCustomName;
+    },
+    last: function (arr) {
+        return arr[arr.length - 1];
     }
 };

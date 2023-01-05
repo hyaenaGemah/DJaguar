@@ -8,7 +8,7 @@ module.exports = {
         const connection = getVoiceConnection(interaction.guildId);
 
         if (!connection) {
-            interaction.reply("DJ is not currently in any VC. :leopard: :zzz:");
+            await interaction.reply("DJ is not currently in any VC. :leopard: :zzz:");
             utils.formattedLog("No voice chat to disconnect from.");
             return;
         }
